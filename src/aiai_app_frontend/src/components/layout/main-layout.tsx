@@ -4,7 +4,8 @@ import { Navbar } from "./navbar";
 import { Footer } from "./footer";
 
 import Home from "../pages/home";
-import Featured from "../pages/featured";
+import Models from "../pages/models";
+import ModelDetails from "../pages/model-details";
 
 const MainLayout = () => {
   return (
@@ -14,10 +15,11 @@ const MainLayout = () => {
           <Navbar />
         </header>
 
-        <main className="w-full">
+        <main className="w-full font-mono">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/featured" element={<Featured />} />
+            <Route path="/models" element={<Models />} />
+            <Route path="/models/details/:id" element={<ModelDetails />} />
           </Routes>
         </main>
 
