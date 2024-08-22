@@ -8,6 +8,8 @@ import { InfiniteMovingCards } from "../ui/infinity-moving-card";
 import { Button } from "../ui/button";
 import { Highlight } from "../ui/hilight";
 
+import { items } from "@/stores/dummy-card";
+
 const Home = () => {
   return (
     <>
@@ -50,10 +52,10 @@ const Home = () => {
           <div className="flex justify-between items-center">
             <TextGenerateEffect className="mb-12" words={textfeature} />
 
-            <Link to="/featured">
+            <Link to="/models">
               <Button
                 size="default"
-                className="me-14 text-white px-10 py-6 font-normal leading-4 tracking-wider text-lg"
+                className="me-14 bg-secondary text-black dark:text-white px-10 py-6 font-normal leading-4 tracking-wider text-lg hover:text-secondary"
               >
                 See More
               </Button>
@@ -61,45 +63,18 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Link to="/" className="mb-8">
-              <CardSpotlight className="h-96 w-96">
-                <p className="text-xl font-bold relative z-20 mt-2 text-white">
-                  Authentication steps
-                </p>
-              </CardSpotlight>
-            </Link>
-
-            <Link to="/about" className="mb-8">
-              <CardSpotlight className="h-96 w-96">
-                <p className="text-xl font-bold relative z-20 mt-2 text-white">
-                  Authentication steps
-                </p>
-              </CardSpotlight>
-            </Link>
-
-            <Link to="/" className="mb-8">
-              <CardSpotlight className="h-96 w-96">
-                <p className="text-xl font-bold relative z-20 mt-2 text-white">
-                  Authentication steps
-                </p>
-              </CardSpotlight>
-            </Link>
-
-            <Link to="/" className="mb-8">
-              <CardSpotlight className="h-96 w-96">
-                <p className="text-xl font-bold relative z-20 mt-2 text-white">
-                  Authentication steps
-                </p>
-              </CardSpotlight>
-            </Link>
-
-            <Link to="/" className="mb-8">
-              <CardSpotlight className="h-96 w-96">
-                <p className="text-xl font-bold relative z-20 mt-2 text-white">
-                  Authentication steps
-                </p>
-              </CardSpotlight>
-            </Link>
+            {items.map((mdl) => (
+              <Link to={`/models/details/${mdl.id}`} className="mb-8">
+                <CardSpotlight className="h-96 w-96">
+                  <h1 className="text-xl font-bold relative z-20 mt-2 ">
+                    {mdl.name}
+                  </h1>
+                  <p className="text-xl font-normal relative z-20 mt-2 ">
+                    {mdl.description}
+                  </p>
+                </CardSpotlight>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
