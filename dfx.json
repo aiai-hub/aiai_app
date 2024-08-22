@@ -5,12 +5,8 @@
       "type": "motoko"
     },
     "aiai_app_frontend": {
-      "dependencies": [
-        "aiai_app_backend"
-      ],
-      "source": [
-        "src/aiai_app_frontend/dist"
-      ],
+      "dependencies": ["aiai_app_backend"],
+      "source": ["src/aiai_app_frontend/dist"],
       "type": "assets",
       "workspace": "aiai_app_frontend"
     }
@@ -19,6 +15,12 @@
     "build": {
       "args": "",
       "packtool": ""
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
     }
   },
   "output_env_file": ".env",
