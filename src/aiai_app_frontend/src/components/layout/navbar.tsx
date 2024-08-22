@@ -26,8 +26,8 @@ export const Navbar = () => {
             key={nav.links}
             to={nav.links}
             className={({ isActive }) =>
-              `dark:text-white   transition-colors mx-3 py-2 px-8 tracking-widest font-sans ${
-                isActive ? "bg-primary rounded-lg text-white" : ""
+              ` transition-colors mx-3 py-3 px-10 tracking-widest font-sans ${
+                isActive ? "bg-secondary rounded-lg e" : ""
               }`
             }
           >
