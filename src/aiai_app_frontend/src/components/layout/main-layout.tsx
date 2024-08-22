@@ -4,7 +4,7 @@ import { Navbar } from "./navbar";
 import { Footer } from "./footer";
 
 import Home from "../pages/home";
-import About from "../pages/about";
+import Featured from "../pages/featured";
 
 const MainLayout = () => {
   return (
@@ -14,10 +14,10 @@ const MainLayout = () => {
           <Navbar />
         </header>
 
-        <main>
+        <main className="w-full">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/featured" element={<Featured />} />
           </Routes>
         </main>
 
