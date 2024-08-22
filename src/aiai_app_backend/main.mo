@@ -282,11 +282,11 @@ actor {
   private stable var ownermodelId : OwnerModelId = 0;
   private stable var ownermodels : Trie.Trie<UserId, OwnerModels> = Trie.empty();
 
-  private func keyownermodel(x : OwnerModelId) : Trie.Key<UserModelId> {
+  private func keyownermodel(x : OwnerModelId) : Trie.Key<OwnerModelId> {
     return { hash = x; key = x };
   };
 
-  // create usermodel
+  // create Ownermodel
   public func createOwnerModel(ownermodel : OwnerModels) : async Bool {
     let userId = ownermodel.userId;
     let modelId = ownermodel.modelId;
@@ -318,8 +318,8 @@ actor {
     };
   };
 
-  // Read usermodel
-  public query func readAllOwnerModel() : async [(UserModelId, UserModels)] {
+  // Read Ownermodel
+  public query func readAllOwnerModel() : async [(OwnerModelId, OwnerModels)] {
     let resultAllData = Iter.toArray(Trie.iter(ownermodels));
     return resultAllData;
   };
@@ -350,7 +350,7 @@ actor {
     );
   };
 
-  // Update usermodel
+  // Update ownermodel
   public func updateOwnerModel(ownermodel_id : OwnerModelId, ownermodelinput : OwnerModels) : async Bool {
     let resultOwner = Trie.find(ownermodels, keyownermodel(ownermodel_id), Nat32.equal);
 
@@ -358,7 +358,7 @@ actor {
     if (data) {
       ownermodels := Trie.replace(
         ownermodels,
-        keyusermodel(ownermodel_id),
+        keyownermodel(ownermodel_id),
         Nat32.equal,
         ?ownermodelinput,
       ).0;
@@ -367,7 +367,7 @@ actor {
 
   };
 
-  // Delete user
+  // Delete ownermodel
   public func deleteOwnerModel(ownermodel_id : OwnerModelId) : async Bool {
     let resultOwner = Trie.find(ownermodels, keyownermodel(ownermodel_id), Nat32.equal);
 
