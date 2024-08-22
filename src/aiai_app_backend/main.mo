@@ -1,6 +1,7 @@
 import Nat32 "mo:base/Nat32";
 import Trie "mo:base/Trie";
 import Iter "mo:base/Iter";
+import Array "mo:base/Array";
 import Option "mo:base/Option";
 actor {
 
@@ -199,9 +200,34 @@ actor {
     };
   };
 
-  public query func readModelUser(user_id : UserId) : async ?UserModels {
-    let result = Trie.find(usermodels, keymodel(user_id), Nat32.equal);
-    return result;
+  // Read usermodel
+  public query func readAllModelUser() : async [(UserModelId, UserModels)] {
+    let resultAllData = Iter.toArray(Trie.iter(usermodels));
+    return resultAllData;
+  };
+
+  public query func readModelUser(user_id : UserId) : async [(UserModelId, UserModels)] {
+
+    func compareUserModels({ userId; modelId } : UserModels, { userId = userId2; modelId = modelId2 } : UserModels) : {
+      #equal;
+      #greater;
+      #less;
+    } = switch (Nat32.compare(userId, userId2)) {
+      case (#equal) { Nat32.compare(modelId, modelId2) };
+      case other other;
+    };
+
+    let iter = Trie.iter(usermodels);
+    let filteredIter = Iter.filter<(UserModelId, UserModels)>(iter, func((_, { userId })) = user_id == userId);
+    let resultAllData = Iter.toArray filteredIter;
+
+    Array.sort<(UserId, UserModels)>(
+      resultAllData,
+      func((userId, modelId), (userId2, modelId2)) = switch (Nat32.compare(userId, userId2)) {
+        case (#equal) { compareUserModels(modelId, modelId2) };
+        case other other;
+      },
+    );
   };
 
 };
