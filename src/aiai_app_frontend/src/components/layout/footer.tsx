@@ -30,7 +30,7 @@ export const Footer = () => {
 
   return (
     <>
-      <footer className="border-t-2 text-white">
+      <footer className="border-t-2">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between px-4 py-12 sm:flex-row sm:px-6 lg:px-8 lg:py-16">
           <div className="mb-8 flex flex-col space-y-8 sm:mb-0">
             <h2 className="text-3xl font-bold">AI AI</h2>
@@ -68,7 +68,7 @@ export const Footer = () => {
             <img src="/images/hero-image.png" className="" alt="Hero Section" />
           </div>
         </div>
-        <div className="border-t border-white border-opacity-20 py-4 text-center text-sm">
+        <div className="border-t border-black dark:border-gray-700   border-opacity-20 py-4 text-center text-sm">
           © 2024 AIAI . All rights reserved
         </div>
       </footer>
