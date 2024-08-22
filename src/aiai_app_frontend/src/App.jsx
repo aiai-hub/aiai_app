@@ -1,30 +1,14 @@
-import { useState } from 'react';
-import { aiai_app_backend } from 'declarations/aiai_app_backend';
+import { ThemeProvider } from "@/components/providers/darkmode-providers.tsx";
+import { ModeToggle } from "@/components/ui/darkmode-toggle";
 
 function App() {
-  const [greeting, setGreeting] = useState('');
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    const name = event.target.elements.name.value;
-    aiai_app_backend.greet(name).then((greeting) => {
-      setGreeting(greeting);
-    });
-    return false;
-  }
-
   return (
-    <main>
-      <img src="/logo2.svg" alt="DFINITY logo" />
-      <br />
-      <br />
-      <form action="#" onSubmit={handleSubmit}>
-        <label htmlFor="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting">{greeting}</section>
-    </main>
+    <ThemeProvider>
+      <ModeToggle />
+      <main className=" border border-red-500 p-10 bg-black">
+        <h1 className="p-2 text-white">tailwind CSS work</h1>
+      </main>
+    </ThemeProvider>
   );
 }
 
