@@ -227,19 +227,7 @@ actor {
         case (#equal) { compareUserModels(modelId, modelId2) };
         case other other;
       },
-    )
-
-    // let usermodal = Trie.iter(usermodels);
-    // var sum : Nat32 = 0;
-    // // var sum : Trie.Trie<UserId, UserModels> = Trie.empty();
-    // for ((k, v) in usermodal) {
-    //   sum += 1;
-    //   return k;
-    //   // sum := Trie.put(sum, keyuser(k), Nat32.equal, 3).0;
-    // };
-    // // let resultAllData = Iter.toArray();
-    // // return sum;
-    // return k;
+    );
   };
 
 };
