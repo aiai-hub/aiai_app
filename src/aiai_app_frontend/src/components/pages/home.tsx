@@ -55,7 +55,7 @@ const Home = () => {
             <Link to="/models">
               <Button
                 size="default"
-                className="me-14 text-white dark:text-bark px-10 py-6 font-normal leading-4 tracking-wider text-lg"
+                className="me-14 bg-secondary text-black dark:text-white px-10 py-6 font-normal leading-4 tracking-wider text-lg hover:text-secondary"
               >
                 See More
               </Button>
