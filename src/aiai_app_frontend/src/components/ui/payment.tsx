@@ -23,7 +23,6 @@ import {
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { aiai_app_backend } from "./../../../../declarations/aiai_app_backend";
 
 export function DrawerDialogPayment() {
   const [open, setOpen] = React.useState(false);

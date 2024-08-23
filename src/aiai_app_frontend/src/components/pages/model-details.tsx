@@ -17,10 +17,12 @@ interface ModelDetails {
 type ModelTuple = [number, ModelDetails];
 
 import { DrawerDialogPayment } from "../ui/payment";
+import { Input } from "../ui/input";
+import { Label } from "@radix-ui/react-dropdown-menu";
 
 const ModelDetails = () => {
   const { id } = useParams<{ id: any }>();
-  const [url, setUrl] = useState("");;
+  const [url, setUrl] = useState("");
 
   // Use the defined tuple type
   let [allModels, setAllModels] = useState<ModelTuple[]>([]);
@@ -80,11 +82,16 @@ const ModelDetails = () => {
                   {mdl[1].description}
                 </p>
 
-                <Button onClick={getUrl}>
-                  Get url
-                </Button>
-                <p>Url: {url}</p>
-                {/* <DrawerDialogPayment /> */}
+                <div className="flex items-center gap-10 mt-10 mb-3 border-t-2 py-3">
+                  <Button className="px-10 py-6 text-lg" onClick={getUrl}>
+                    Get url
+                  </Button>
+
+                  <div className="w-3/4">
+                    <Label className="mb-2 ps-3">Copy Endpoint Below: </Label>
+                    <Input className="w-full py-6 ps-5" defaultValue={url} />
+                  </div>
+                </div>
               </div>
             </div>
           </TracingBeam>
