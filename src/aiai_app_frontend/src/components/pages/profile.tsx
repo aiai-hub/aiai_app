@@ -16,15 +16,52 @@ import { Label } from "@/components/ui/label";
 import { items } from "@/stores/dummy-card";
 import { Link } from "react-router-dom";
 import { CardSpotlight } from "../ui/card-spotlight";
-import { Import } from "lucide-react";
+import { RocketIcon } from "lucide-react";
 
 import { aiai_app_backend } from "../../../../declarations/aiai_app_backend";
-import useState from "react";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const Profile = () => {
-  const [name, setName] = React.useState("");
+  const [modelname, setModelname] = React.useState("");
+  const [url, setUrl] = React.useState("");
+  const [author, setAuthor] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [modelId, setModelId] = React.useState<number | null>(null);
+  const [alert, setAlert] = React.useState<{
+    type: string;
+    message: string;
+  } | null>(null);
 
-  console.log("ini data actor aiai be: ", aiai_app_backend.createModel);
+  const createModel = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const newModel = {
+      modelname,
+      url,
+      author,
+      description,
+    };
+
+    try {
+      const res = await aiai_app_backend.createModel(newModel);
+
+      setModelId(res);
+
+      setModelname("");
+      setAuthor("");
+      setUrl("");
+      setDescription("");
+    } catch (error) {
+      console.error("Failed to create model", error);
+    }
+
+    const data = JSON.stringify(newModel);
+
+    console.log("ini data: ", data);
+    return data;
+  };
+
   return (
     <div className="md:container px-4 mt-5 mb-20">
       <div className="w-full ">
@@ -46,10 +83,9 @@ const Profile = () => {
         </div>
 
         <Tabs defaultValue="collection" className="w-full">
-          <TabsList className="grid w-2/4 grid-cols-3">
+          <TabsList className="grid w-2/4 grid-cols-2">
             <TabsTrigger value="collection">Collections</TabsTrigger>
             <TabsTrigger value="news">Create New</TabsTrigger>
-            <TabsTrigger value="history">History Post</TabsTrigger>
           </TabsList>
           <TabsContent value="collection">
             <Card className="flex flex-col md:flex-row gap-5 items-center">
@@ -81,59 +117,70 @@ const Profile = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-5">
-                <div className="space-y-2">
-                  <Label className="ps-3" htmlFor="name">
-                    Module Name
-                  </Label>
-                  <Input id="name" type="text" placeholder="AI Name" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="ps-3" htmlFor="url">
-                    URL Name
-                  </Label>
-                  <Input
-                    id="url"
-                    type="text"
-                    placeholder="https:example-url.com"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label className="ps-3" htmlFor="author">
-                    Author Name
-                  </Label>
-                  <Input id="author" type="text" placeholder="Jhon Doe" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="ps-3" htmlFor="desc">
-                    Description
-                  </Label>
-                  <Input id="desc" type="text" placeholder="Description..." />
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button type="submit">Save changes</Button>
-              </CardFooter>
-            </Card>
-          </TabsContent>
+                <form onSubmit={createModel}>
+                  {alert && (
+                    <Alert>
+                      <RocketIcon className="h-4 w-4" />
+                      <AlertTitle>
+                        {alert.type === "success" ? "Success!" : "Error!"}
+                      </AlertTitle>
+                      <AlertDescription>{alert.message}</AlertDescription>
+                    </Alert>
+                  )}
+                  <div className="space-y-2">
+                    <Label className="ps-3" htmlFor="name">
+                      Module Name
+                    </Label>
+                    <Input
+                      id="name"
+                      type="text"
+                      placeholder="AI Name"
+                      value={modelname}
+                      onChange={(e) => setModelname(e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="ps-3" htmlFor="url">
+                      URL Name
+                    </Label>
+                    <Input
+                      id="url"
+                      type="text"
+                      placeholder="https:example-url.com"
+                      value={url}
+                      onChange={(e) => setUrl(e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="ps-3" htmlFor="author">
+                      Author Name
+                    </Label>
+                    <Input
+                      id="author"
+                      type="text"
+                      placeholder="Jhon Doe"
+                      value={author}
+                      onChange={(e) => setAuthor(e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="ps-3" htmlFor="desc">
+                      Description
+                    </Label>
+                    <Input
+                      id="desc"
+                      type="text"
+                      placeholder="Description..."
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                    />
+                  </div>
 
-          <TabsContent value="history">
-            <Card className="flex flex-col md:flex-row gap-5 items-center">
-              {items.map((mdl) => (
-                <Link
-                  key={mdl.id}
-                  to={`/models/details/${mdl.id}`}
-                  className="mb-8 w-full justify-center flex items-center mt-6"
-                >
-                  <CardSpotlight className="h-96 w-96">
-                    <h1 className="text-xl font-bold relative z-20 mt-2 ">
-                      {mdl.name}
-                    </h1>
-                    <p className="text-xl font-normal relative z-20 mt-2 ">
-                      {mdl.description}
-                    </p>
-                  </CardSpotlight>
-                </Link>
-              ))}
+                  <Button className="mt-5 w-full" type="submit">
+                    Create Model
+                  </Button>
+                </form>
+              </CardContent>
             </Card>
           </TabsContent>
         </Tabs>
