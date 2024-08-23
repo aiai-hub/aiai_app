@@ -19,7 +19,7 @@ export const Navbar = () => {
   return (
     <div className="sticky top-0 flex items-center justify-between gap-4 bg-background px-3">
       {/* desktop nav */}
-      <img src="favicon.ico" className="" alt="Logo" />
+      <img src="/images/logo-text.png" className="w-18 h-12" alt="Logo" />
       <nav className="hidden py-3 w-full flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:justify-center md:gap-5 md:text-sm lg:gap-6">
         {navLinks.map((nav) => (
           <NavLink

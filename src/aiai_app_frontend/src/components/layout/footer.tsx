@@ -33,7 +33,10 @@ export const Footer = () => {
       <footer className="border-t-2">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between px-4 py-12 sm:flex-row sm:px-6 lg:px-8 lg:py-16">
           <div className="mb-8 flex flex-col space-y-8 sm:mb-0">
-            <h2 className="text-3xl font-bold">AI AI</h2>
+            <div>
+              <h2 className="text-3xl font-bold">AI AI</h2>
+              <small>Access, Innovate, Thrive</small>
+            </div>
             <div>
               <h3 className="mb-4 text-lg font-semibold">Reach us</h3>
               <ul className="space-y-4">
