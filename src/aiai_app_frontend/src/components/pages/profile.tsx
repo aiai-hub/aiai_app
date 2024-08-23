@@ -17,7 +17,32 @@ import { items } from "@/stores/dummy-card";
 import { Link } from "react-router-dom";
 import { CardSpotlight } from "../ui/card-spotlight";
 
+import { aiai_app_backend } from "./../../../../declarations/aiai_app_backend";
+import { useEffect, useState } from "react";
+
+interface ModelDetails {
+  url: string;
+  description: string;
+  author: string;
+  modelname: string;
+}
+
+// Define allModels as an array of tuples [number, ModelDetails]
+type ModelTuple = [number, ModelDetails];
+
 const Profile = () => {
+  let [allModels, setAllModels] = useState<ModelTuple[]>([]);
+
+  async function getAllmodels() {
+    const res: any = await aiai_app_backend.readAllModel();
+
+    setAllModels(res);
+  }
+
+  useEffect(() => {
+    getAllmodels();
+  }, []);
+
   return (
     <div className="md:container px-4 mt-5 mb-20">
       <div className="w-full ">
@@ -44,26 +69,35 @@ const Profile = () => {
             <TabsTrigger value="news">Create New</TabsTrigger>
             <TabsTrigger value="history">History Post</TabsTrigger>
           </TabsList>
+
+
+
           <TabsContent value="collection">
             <Card className="flex flex-col md:flex-row gap-5 items-center">
-              {items.map((mdl) => (
+              {allModels.slice(0, 2).map((mdl, index) => (
+
                 <Link
-                  key={mdl.id}
-                  to={`/models/details/${mdl.id}`}
+                  key={mdl[0]}
+                  to={`/models/details/${mdl[1].modelname}`}
                   className="mb-8 w-full justify-center flex items-center mt-6"
                 >
                   <CardSpotlight className="h-96 w-96">
                     <h1 className="text-xl font-bold relative z-20 mt-2 ">
-                      {mdl.name}
+                      {mdl[1].modelname}
                     </h1>
                     <p className="text-xl font-normal relative z-20 mt-2 ">
-                      {mdl.description}
+                      {mdl[1].description}
                     </p>
                   </CardSpotlight>
                 </Link>
               ))}
             </Card>
           </TabsContent>
+
+
+
+
+
 
           <TabsContent value="news">
             <Card>

@@ -22,7 +22,7 @@ actor {
   };
 
   // create user
-  public func createUser(user : Users) : async UserId {
+  public shared func createUser(user : Users) : async UserId {
     let user_id = userId;
     userId += 1;
     users := Trie.replace(
@@ -36,18 +36,18 @@ actor {
   };
 
   // Read user
-  public query func readUser(user_id : UserId) : async ?Users {
+  public shared query func readUser(user_id : UserId) : async ?Users {
     let result = Trie.find(users, keyuser(user_id), Nat32.equal);
     return result;
   };
 
-  public query func readAllUser() : async [(UserId, Users)] {
+  public shared query func readAllUser() : async [(UserId, Users)] {
     let resultAllData = Iter.toArray(Trie.iter(users));
     return resultAllData;
   };
 
   // Update user
-  public func updateUser(user_id : UserId, userinput : Users) : async Bool {
+  public shared func updateUser(user_id : UserId, userinput : Users) : async Bool {
     let resultUser = Trie.find(users, keyuser(user_id), Nat32.equal);
 
     let data = Option.isSome(resultUser);
@@ -64,7 +64,7 @@ actor {
   };
 
   // Delete user
-  public func deleteUser(user_id : UserId) : async Bool {
+  public shared func deleteUser(user_id : UserId) : async Bool {
     let resultUser = Trie.find(users, keyuser(user_id), Nat32.equal);
 
     let data = Option.isSome(resultUser);

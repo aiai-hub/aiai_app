@@ -5,10 +5,36 @@ import { textOurfeature } from "@/stores/text-hero";
 import { TextGenerateEffect } from "../ui/text-generate-effect";
 import { CardSpotlight } from "../ui/card-spotlight";
 import { Link } from "react-router-dom";
+import { aiai_app_backend } from "./../../../../declarations/aiai_app_backend";
 
 import { items } from "@/stores/dummy-card";
+import { useEffect, useState } from "react";
+
+interface ModelDetails {
+  url: string;
+  description: string;
+  author: string;
+  modelname: string;
+}
+
+// Define allModels as an array of tuples [number, ModelDetails]
+type ModelTuple = [number, ModelDetails];
 
 const Models = () => {
+
+  // Use the defined tuple type
+  let [allModels, setAllModels] = useState<ModelTuple[]>([]);
+
+  async function getAllmodels() {
+    const res: any = await aiai_app_backend.readAllModel();
+
+    setAllModels(res);
+  }
+
+  useEffect(() => {
+    getAllmodels();
+  }, []);
+
   return (
     <div className="md:container px-4">
       <div className="mt-16">
@@ -29,14 +55,14 @@ const Models = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-16 mb-24">
-        {items.map((mdl) => (
-          <Link key={mdl.id} to={`/models/details/${mdl.id}`} className="mb-8">
+        {allModels.map((mdl, index) => (
+          <Link key={mdl[0]} to={`/models/details/${mdl[1].modelname}`} className="mb-8">
             <CardSpotlight className="h-96 w-96">
-              <h1 className="text-xl font-bold relative z-20 mt-2 ">
-                {mdl.name}
+              <h1 className="text-xl font-bold relative z-20 mt-2">
+                {mdl[1].modelname}
               </h1>
-              <p className="text-xl font-normal relative z-20 mt-2 ">
-                {mdl.description}
+              <p className="text-xl font-normal relative z-20 mt-2">
+                {mdl[1].description}
               </p>
             </CardSpotlight>
           </Link>
