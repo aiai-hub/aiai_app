@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 
 import { TracingBeam } from "../ui/tracking-bean";
+import { Button } from "../ui/button";
 
 import { aiai_app_backend } from "./../../../../declarations/aiai_app_backend";
 import { useEffect, useState } from "react";
@@ -18,7 +19,7 @@ type ModelTuple = [number, ModelDetails];
 import { DrawerDialogPayment } from "../ui/payment";
 
 const ModelDetails = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: any }>();
 
   // Use the defined tuple type
   let [allModels, setAllModels] = useState<ModelTuple[]>([]);
@@ -27,6 +28,10 @@ const ModelDetails = () => {
     const res: any = await aiai_app_backend.readAllModel();
 
     setAllModels(res);
+  }
+
+  async function getUrl() {
+    console.log(id);
   }
 
   useEffect(() => {
@@ -70,7 +75,10 @@ const ModelDetails = () => {
                   {mdl[1].description}
                 </p>
 
-                <DrawerDialogPayment />
+                <Button onClick={getUrl}>
+                  Get url
+                </Button>
+                {/* <DrawerDialogPayment /> */}
               </div>
             </div>
           </TracingBeam>
