@@ -20,6 +20,7 @@ import { DrawerDialogPayment } from "../ui/payment";
 
 const ModelDetails = () => {
   const { id } = useParams<{ id: any }>();
+  const [url, setUrl] = useState("");;
 
   // Use the defined tuple type
   let [allModels, setAllModels] = useState<ModelTuple[]>([]);
@@ -31,7 +32,11 @@ const ModelDetails = () => {
   }
 
   async function getUrl() {
-    console.log(id);
+    allModels.map((mdl, index) => {
+      if (mdl[1].modelname == id) {
+        setUrl(mdl[1].url);
+      }
+    });
   }
 
   useEffect(() => {
@@ -78,6 +83,7 @@ const ModelDetails = () => {
                 <Button onClick={getUrl}>
                   Get url
                 </Button>
+                <p>Url: {url}</p>
                 {/* <DrawerDialogPayment /> */}
               </div>
             </div>
