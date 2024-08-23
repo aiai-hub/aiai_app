@@ -53,7 +53,7 @@ const Models = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-16 mb-24">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-16 mb-24 overflow-hidden">
         {allModels.map((mdl, index) => (
           <Link
             key={mdl[0]}
