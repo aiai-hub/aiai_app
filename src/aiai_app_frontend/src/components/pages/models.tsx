@@ -64,7 +64,7 @@ const Models = () => {
               <h1 className="text-xl font-bold relative z-20 mt-2">
                 {mdl[1].modelname}
               </h1>
-              <p className="text-xl font-normal relative z-20 mt-2">
+              <p className="text-xl font-normal relative z-20 mt-6 line-clamp-6">
                 {mdl[1].description}
               </p>
             </CardSpotlight>
