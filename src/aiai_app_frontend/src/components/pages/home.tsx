@@ -16,9 +16,9 @@ const Home = () => {
       <div className="md:container px-4">
         <div className="relative md:h-[90vh] flex flex-col md:flex-row items-center">
           <div className="md:basis-[40%]">
-            <h1 className="font-bold dark:text-white text-black md:text-7xl leading-10 tracking-wider">
-              Lorem ipsum dolor sit amet,
-              <Highlight>AI AI</Highlight> , nobis? Quidem, iure!
+            <h1 className="font-bold dark:text-white text-black md:text-7xl leading-[3rem] tracking-wider">
+              Lorem ipsum dolor sit amet, <Highlight>AI AI</Highlight>, nobis?
+              Quidem, iure!
             </h1>
           </div>
           <div className="md:basis-[60%] h-full">
@@ -62,9 +62,13 @@ const Home = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {items.map((mdl) => (
-              <Link to={`/models/details/${mdl.id}`} className="mb-8">
+              <Link
+                key={mdl.id}
+                to={`/models/details/${mdl.id}`}
+                className="mb-8"
+              >
                 <CardSpotlight className="h-96 w-96">
                   <h1 className="text-xl font-bold relative z-20 mt-2 ">
                     {mdl.name}

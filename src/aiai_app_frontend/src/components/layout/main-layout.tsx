@@ -6,6 +6,7 @@ import { Footer } from "./footer";
 import Home from "../pages/home";
 import Models from "../pages/models";
 import ModelDetails from "../pages/model-details";
+import Profile from "../pages/profile";
 
 const MainLayout = () => {
   return (
@@ -20,6 +21,7 @@ const MainLayout = () => {
             <Route path="/" element={<Home />} />
             <Route path="/models" element={<Models />} />
             <Route path="/models/details/:id" element={<ModelDetails />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </main>
 

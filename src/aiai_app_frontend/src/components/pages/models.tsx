@@ -22,7 +22,7 @@ const Models = () => {
           <Search className="absolute left-[195px] top-[22px] h-4 w-4 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="Search..."   
+            placeholder="Search..."
             className="w-3/4 mx-auto rounded- rounded-full bg-background pl-14 py-7"
           />
         </div>
@@ -30,7 +30,7 @@ const Models = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-16 mb-24">
         {items.map((mdl) => (
-          <Link to={`/models/details/${mdl.id}`} className="mb-8">
+          <Link key={mdl.id} to={`/models/details/${mdl.id}`} className="mb-8">
             <CardSpotlight className="h-96 w-96">
               <h1 className="text-xl font-bold relative z-20 mt-2 ">
                 {mdl.name}
