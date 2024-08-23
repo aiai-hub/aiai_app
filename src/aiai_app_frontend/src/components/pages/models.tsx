@@ -55,8 +55,17 @@ const Models = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-16 mb-24">
+<<<<<<< HEAD
         {allModels.map((mdl, index) => (
           <Link key={mdl[0]} to={`/models/details/${mdl[1].modelname}`} className="mb-8">
+=======
+        {items.map((mdl) => (
+          <Link
+            key={mdl.id}
+            to={`/models/details/${mdl.id}`}
+            className="mb-8 gap-4"
+          >
+>>>>>>> 6ef69c7249a5c8dcb60692d8dac4dba716434496
             <CardSpotlight className="h-96 w-96">
               <h1 className="text-xl font-bold relative z-20 mt-2">
                 {mdl[1].modelname}

@@ -41,9 +41,9 @@ const Home = () => {
       <div className="md:container px-4">
         <div className="relative md:h-[90vh] flex flex-col md:flex-row items-center">
           <div className="md:basis-[40%]">
+            <p className="ml-2 mb-4">AI & Blockchain</p>
             <h1 className="font-bold dark:text-white text-black md:text-7xl leading-[3rem] tracking-wider">
-              Lorem ipsum dolor sit amet, <Highlight>AI AI</Highlight>, nobis?
-              Quidem, iure!
+              Discover the Power of Ready-to-Use <Highlight>DeAI</Highlight> Solutions
             </h1>
           </div>
           <div className="md:basis-[60%] h-full">
@@ -66,10 +66,7 @@ const Home = () => {
           />
 
           <p className="text-center font-normal text-lg w-[85%] mx-auto tracking-widest">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus
-            accusamus repellat assumenda! Eum velit cumque doloremque ex
-            similique porro molestiae, ipsum provident? Id laudantium
-            repellendus veniam quaerat enim corporis laborum.
+            At aiai, we connect AI developers and businesses on a decentralized platform. Developers can easily sell their AI solutions, while users can discover and buy ready-to-use AI tools tailored to their needs. We simplify the exchange, making AI accessible and empowering innovation across industries.
           </p>
         </div>
 

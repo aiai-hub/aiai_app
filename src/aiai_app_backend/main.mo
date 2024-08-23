@@ -41,6 +41,7 @@ actor {
     return result;
   };
 
+<<<<<<< HEAD
   public shared query func readAllUser() : async [(UserId, Users)] {
     let resultAllData = Iter.toArray(Trie.iter(users));
     return resultAllData;
@@ -80,6 +81,8 @@ actor {
 
   };
 
+=======
+>>>>>>> 6ef69c7249a5c8dcb60692d8dac4dba716434496
   // MODEL ===============================================================
 
   public type ModelId = Nat32;
@@ -141,22 +144,6 @@ actor {
 
   };
 
-  // Delete Model
-  public func deleteModel(model_id : ModelId) : async Bool {
-    let resultModel = Trie.find(models, keymodel(model_id), Nat32.equal);
-
-    let data = Option.isSome(resultModel);
-    if (data) {
-      models := Trie.replace(
-        models,
-        keymodel(model_id),
-        Nat32.equal,
-        null,
-      ).0;
-    };
-    return data;
-
-  };
 
   // User Models ===============================================================
   public type UserModelId = Nat32;
@@ -254,7 +241,7 @@ actor {
 
   };
 
-  // Delete user
+  // Delete user Model
   public func deleteUserModel(usermodel_id : UserModelId) : async Bool {
     let resultUser = Trie.find(usermodels, keyusermodel(usermodel_id), Nat32.equal);
 
@@ -270,118 +257,4 @@ actor {
     return data;
 
   };
-
-  // User Models ===============================================================
-  public type OwnerModelId = Nat32;
-
-  public type OwnerModels = {
-    userId : UserId;
-    modelId : ModelId;
-  };
-
-  private stable var ownermodelId : OwnerModelId = 0;
-  private stable var ownermodels : Trie.Trie<UserId, OwnerModels> = Trie.empty();
-
-  private func keyownermodel(x : OwnerModelId) : Trie.Key<OwnerModelId> {
-    return { hash = x; key = x };
-  };
-
-  // create Ownermodel
-  public func createOwnerModel(ownermodel : OwnerModels) : async Bool {
-    let userId = ownermodel.userId;
-    let modelId = ownermodel.modelId;
-    let _oUser = Trie.get(users, keyuser userId, Nat32.equal);
-    let _oModel = Trie.get(models, keymodel modelId, Nat32.equal);
-
-    switch (_oUser, _oModel) {
-      case (null, null) {
-        false;
-      };
-      case (?_vUser, null) {
-        false;
-      };
-      case (null, ?_vModel) {
-        false;
-      };
-      case (?_vUser, ?_vModel) {
-        let ownermodels_id = ownermodelId;
-        ownermodelId += 1;
-        ownermodels := Trie.replace(
-          ownermodels,
-          keyuser(ownermodels_id),
-          Nat32.equal,
-          ?ownermodel,
-        ).0;
-        true;
-      };
-
-    };
-  };
-
-  // Read Ownermodel
-  public query func readAllOwnerModel() : async [(OwnerModelId, OwnerModels)] {
-    let resultAllData = Iter.toArray(Trie.iter(ownermodels));
-    return resultAllData;
-  };
-
-  public func readOwnerModel(user_id : UserId) : async [(OwnerModelId, OwnerModels)] {
-
-    func compareOwnerModels({ userId; modelId } : OwnerModels, { userId = userId2; modelId = modelId2 } : OwnerModels) : {
-      #equal;
-      #greater;
-      #less;
-    } = switch (Nat32.compare(userId, userId2)) {
-      case (#equal) {
-        Nat32.compare(modelId, modelId2);
-      };
-      case other other;
-    };
-
-    let iter = Trie.iter(ownermodels);
-    let filteredIter = Iter.filter<(OwnerModelId, OwnerModels)>(iter, func((_, { userId })) = user_id == userId);
-    let resultAllData = Iter.toArray filteredIter;
-
-    Array.sort<(UserId, UserModels)>(
-      resultAllData,
-      func((userId, modelId), (userId2, modelId2)) = switch (Nat32.compare(userId, userId2)) {
-        case (#equal) { compareOwnerModels(modelId, modelId2) };
-        case other other;
-      },
-    );
-  };
-
-  // Update ownermodel
-  public func updateOwnerModel(ownermodel_id : OwnerModelId, ownermodelinput : OwnerModels) : async Bool {
-    let resultOwner = Trie.find(ownermodels, keyownermodel(ownermodel_id), Nat32.equal);
-
-    let data = Option.isSome(resultOwner);
-    if (data) {
-      ownermodels := Trie.replace(
-        ownermodels,
-        keyownermodel(ownermodel_id),
-        Nat32.equal,
-        ?ownermodelinput,
-      ).0;
-    };
-    return data;
-
-  };
-
-  // Delete ownermodel
-  public func deleteOwnerModel(ownermodel_id : OwnerModelId) : async Bool {
-    let resultOwner = Trie.find(ownermodels, keyownermodel(ownermodel_id), Nat32.equal);
-
-    let data = Option.isSome(resultOwner);
-    if (data) {
-      ownermodels := Trie.replace(
-        ownermodels,
-        keyownermodel(ownermodel_id),
-        Nat32.equal,
-        null,
-      ).0;
-    };
-    return data;
-
-  };
-
 };

@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 
 import { TracingBeam } from "../ui/tracking-bean";
 
+<<<<<<< HEAD
 import { aiai_app_backend } from "./../../../../declarations/aiai_app_backend";
 import { useEffect, useState } from "react";
 
@@ -14,6 +15,9 @@ interface ModelDetails {
 
 // Define allModels as an array of tuples [number, ModelDetails]
 type ModelTuple = [number, ModelDetails];
+=======
+import { DrawerDialogPayment } from "../ui/payment";
+>>>>>>> 6ef69c7249a5c8dcb60692d8dac4dba716434496
 
 const ModelDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -69,6 +73,8 @@ const ModelDetails = () => {
                 <p className="text-sm prose prose-sm dark:prose-invert">
                   {mdl[1].description}
                 </p>
+
+                <DrawerDialogPayment />
               </div>
             </div>
           </TracingBeam>

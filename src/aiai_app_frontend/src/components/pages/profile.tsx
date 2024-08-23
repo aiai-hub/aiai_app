@@ -16,6 +16,11 @@ import { Label } from "@/components/ui/label";
 import { items } from "@/stores/dummy-card";
 import { Link } from "react-router-dom";
 import { CardSpotlight } from "../ui/card-spotlight";
+import { RocketIcon } from "lucide-react";
+
+import { aiai_app_backend } from "../../../../declarations/aiai_app_backend";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 import { aiai_app_backend } from "./../../../../declarations/aiai_app_backend";
 import { useEffect, useState } from "react";
@@ -31,6 +36,7 @@ interface ModelDetails {
 type ModelTuple = [number, ModelDetails];
 
 const Profile = () => {
+<<<<<<< HEAD
   let [allModels, setAllModels] = useState<ModelTuple[]>([]);
 
   async function getAllmodels() {
@@ -42,6 +48,46 @@ const Profile = () => {
   useEffect(() => {
     getAllmodels();
   }, []);
+=======
+  const [modelname, setModelname] = React.useState("");
+  const [url, setUrl] = React.useState("");
+  const [author, setAuthor] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [modelId, setModelId] = React.useState<number | null>(null);
+  const [alert, setAlert] = React.useState<{
+    type: string;
+    message: string;
+  } | null>(null);
+
+  const createModel = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const newModel = {
+      modelname,
+      url,
+      author,
+      description,
+    };
+
+    try {
+      const res = await aiai_app_backend.createModel(newModel);
+
+      setModelId(res);
+
+      setModelname("");
+      setAuthor("");
+      setUrl("");
+      setDescription("");
+    } catch (error) {
+      console.error("Failed to create model", error);
+    }
+
+    const data = JSON.stringify(newModel);
+
+    console.log("ini data: ", data);
+    return data;
+  };
+>>>>>>> 6ef69c7249a5c8dcb60692d8dac4dba716434496
 
   return (
     <div className="md:container px-4 mt-5 mb-20">
@@ -57,17 +103,16 @@ const Profile = () => {
           <Avatar className="border w-44 h-44 -mt-[6rem] sm:-mt-14 md:mx-0 xl:mx-0">
             <AvatarImage
               className="object-cover"
-              src="https://github.com/shadcn.png"
+              src="/images/avatar.png"
             />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </div>
 
         <Tabs defaultValue="collection" className="w-full">
-          <TabsList className="grid w-2/4 grid-cols-3">
+          <TabsList className="grid w-2/4 grid-cols-2">
             <TabsTrigger value="collection">Collections</TabsTrigger>
             <TabsTrigger value="news">Create New</TabsTrigger>
-            <TabsTrigger value="history">History Post</TabsTrigger>
           </TabsList>
 
 
@@ -108,59 +153,70 @@ const Profile = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-5">
-                <div className="space-y-2">
-                  <Label className="ps-3" htmlFor="name">
-                    Module Name
-                  </Label>
-                  <Input id="name" type="text" defaultValue="AI Name" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="ps-3" htmlFor="url">
-                    URL Name
-                  </Label>
-                  <Input
-                    id="url"
-                    type="text"
-                    defaultValue="https:example-url.com"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label className="ps-3" htmlFor="author">
-                    Author Name
-                  </Label>
-                  <Input id="author" type="text" defaultValue="Jhon Doe" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="ps-3" htmlFor="desc">
-                    Description
-                  </Label>
-                  <Input id="desc" type="text" defaultValue="Description..." />
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button type="submit">Save changes</Button>
-              </CardFooter>
-            </Card>
-          </TabsContent>
+                <form onSubmit={createModel}>
+                  {alert && (
+                    <Alert>
+                      <RocketIcon className="h-4 w-4" />
+                      <AlertTitle>
+                        {alert.type === "success" ? "Success!" : "Error!"}
+                      </AlertTitle>
+                      <AlertDescription>{alert.message}</AlertDescription>
+                    </Alert>
+                  )}
+                  <div className="space-y-2">
+                    <Label className="ps-3" htmlFor="name">
+                      Module Name
+                    </Label>
+                    <Input
+                      id="name"
+                      type="text"
+                      placeholder="AI Name"
+                      value={modelname}
+                      onChange={(e) => setModelname(e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="ps-3" htmlFor="url">
+                      URL Name
+                    </Label>
+                    <Input
+                      id="url"
+                      type="text"
+                      placeholder="https:example-url.com"
+                      value={url}
+                      onChange={(e) => setUrl(e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="ps-3" htmlFor="author">
+                      Author Name
+                    </Label>
+                    <Input
+                      id="author"
+                      type="text"
+                      placeholder="Jhon Doe"
+                      value={author}
+                      onChange={(e) => setAuthor(e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="ps-3" htmlFor="desc">
+                      Description
+                    </Label>
+                    <Input
+                      id="desc"
+                      type="text"
+                      placeholder="Description..."
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                    />
+                  </div>
 
-          <TabsContent value="history">
-            <Card className="flex flex-col md:flex-row gap-5 items-center">
-              {items.map((mdl) => (
-                <Link
-                  key={mdl.id}
-                  to={`/models/details/${mdl.id}`}
-                  className="mb-8 w-full justify-center flex items-center mt-6"
-                >
-                  <CardSpotlight className="h-96 w-96">
-                    <h1 className="text-xl font-bold relative z-20 mt-2 ">
-                      {mdl.name}
-                    </h1>
-                    <p className="text-xl font-normal relative z-20 mt-2 ">
-                      {mdl.description}
-                    </p>
-                  </CardSpotlight>
-                </Link>
-              ))}
+                  <Button className="mt-5 w-full" type="submit">
+                    Create Model
+                  </Button>
+                </form>
+              </CardContent>
             </Card>
           </TabsContent>
         </Tabs>
