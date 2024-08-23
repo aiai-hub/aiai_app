@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 
 import { TracingBeam } from "../ui/tracking-bean";
 
-<<<<<<< HEAD
 import { aiai_app_backend } from "./../../../../declarations/aiai_app_backend";
 import { useEffect, useState } from "react";
 
@@ -15,9 +14,8 @@ interface ModelDetails {
 
 // Define allModels as an array of tuples [number, ModelDetails]
 type ModelTuple = [number, ModelDetails];
-=======
+
 import { DrawerDialogPayment } from "../ui/payment";
->>>>>>> 6ef69c7249a5c8dcb60692d8dac4dba716434496
 
 const ModelDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -35,11 +33,9 @@ const ModelDetails = () => {
     getAllmodels();
   }, []);
 
-
   return (
     <div className="md:container px-4 my-16 h-[90vh]">
-      {allModels.map((mdl, index) => (
-
+      {allModels.map((mdl, index) =>
         mdl[1].modelname == id ? (
           <TracingBeam key={index} className="px-6">
             <div className="max-w-2xl mx-auto antialiased pt-4 relative">
@@ -81,8 +77,7 @@ const ModelDetails = () => {
         ) : (
           <div className="" key={index}></div>
         )
-      ))}
-
+      )}
     </div>
   );
 };

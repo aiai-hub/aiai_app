@@ -13,12 +13,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { items } from "@/stores/dummy-card";
 import { Link } from "react-router-dom";
 import { CardSpotlight } from "../ui/card-spotlight";
 import { RocketIcon } from "lucide-react";
-
-import { aiai_app_backend } from "../../../../declarations/aiai_app_backend";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -36,7 +33,6 @@ interface ModelDetails {
 type ModelTuple = [number, ModelDetails];
 
 const Profile = () => {
-<<<<<<< HEAD
   let [allModels, setAllModels] = useState<ModelTuple[]>([]);
 
   async function getAllmodels() {
@@ -48,7 +44,7 @@ const Profile = () => {
   useEffect(() => {
     getAllmodels();
   }, []);
-=======
+
   const [modelname, setModelname] = React.useState("");
   const [url, setUrl] = React.useState("");
   const [author, setAuthor] = React.useState("");
@@ -87,7 +83,6 @@ const Profile = () => {
     console.log("ini data: ", data);
     return data;
   };
->>>>>>> 6ef69c7249a5c8dcb60692d8dac4dba716434496
 
   return (
     <div className="md:container px-4 mt-5 mb-20">
@@ -101,10 +96,7 @@ const Profile = () => {
         </div>
         <div className="mx-auto flex w-full shrink-0 flex-col md:px-4 xl:px-6 3xl:max-w-[1700px] 3xl:px-12 mb-[3rem]">
           <Avatar className="border w-44 h-44 -mt-[6rem] sm:-mt-14 md:mx-0 xl:mx-0">
-            <AvatarImage
-              className="object-cover"
-              src="/images/avatar.png"
-            />
+            <AvatarImage className="object-cover" src="/images/avatar.png" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </div>
@@ -115,12 +107,9 @@ const Profile = () => {
             <TabsTrigger value="news">Create New</TabsTrigger>
           </TabsList>
 
-
-
           <TabsContent value="collection">
             <Card className="flex flex-col md:flex-row gap-5 items-center">
               {allModels.slice(0, 2).map((mdl, index) => (
-
                 <Link
                   key={mdl[0]}
                   to={`/models/details/${mdl[1].modelname}`}
@@ -138,11 +127,6 @@ const Profile = () => {
               ))}
             </Card>
           </TabsContent>
-
-
-
-
-
 
           <TabsContent value="news">
             <Card>

@@ -41,48 +41,6 @@ actor {
     return result;
   };
 
-<<<<<<< HEAD
-  public shared query func readAllUser() : async [(UserId, Users)] {
-    let resultAllData = Iter.toArray(Trie.iter(users));
-    return resultAllData;
-  };
-
-  // Update user
-  public shared func updateUser(user_id : UserId, userinput : Users) : async Bool {
-    let resultUser = Trie.find(users, keyuser(user_id), Nat32.equal);
-
-    let data = Option.isSome(resultUser);
-    if (data) {
-      users := Trie.replace(
-        users,
-        keyuser(user_id),
-        Nat32.equal,
-        ?userinput,
-      ).0;
-    };
-    return data;
-
-  };
-
-  // Delete user
-  public shared func deleteUser(user_id : UserId) : async Bool {
-    let resultUser = Trie.find(users, keyuser(user_id), Nat32.equal);
-
-    let data = Option.isSome(resultUser);
-    if (data) {
-      users := Trie.replace(
-        users,
-        keyuser(user_id),
-        Nat32.equal,
-        null,
-      ).0;
-    };
-    return data;
-
-  };
-
-=======
->>>>>>> 6ef69c7249a5c8dcb60692d8dac4dba716434496
   // MODEL ===============================================================
 
   public type ModelId = Nat32;
