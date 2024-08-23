@@ -39,7 +39,7 @@ const Profile = () => {
           <Avatar className="border w-44 h-44 -mt-[6rem] sm:-mt-14 md:mx-0 xl:mx-0">
             <AvatarImage
               className="object-cover"
-              src="https://github.com/shadcn.png"
+              src="/images/avatar.png"
             />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
