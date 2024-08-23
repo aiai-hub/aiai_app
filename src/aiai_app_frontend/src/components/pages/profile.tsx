@@ -16,8 +16,15 @@ import { Label } from "@/components/ui/label";
 import { items } from "@/stores/dummy-card";
 import { Link } from "react-router-dom";
 import { CardSpotlight } from "../ui/card-spotlight";
+import { Import } from "lucide-react";
+
+import { aiai_app_backend } from "../../../../declarations/aiai_app_backend";
+import useState from "react";
 
 const Profile = () => {
+  const [name, setName] = React.useState("");
+
+  console.log("ini data actor aiai be: ", aiai_app_backend.createModel);
   return (
     <div className="md:container px-4 mt-5 mb-20">
       <div className="w-full ">
@@ -78,7 +85,7 @@ const Profile = () => {
                   <Label className="ps-3" htmlFor="name">
                     Module Name
                   </Label>
-                  <Input id="name" type="text" defaultValue="AI Name" />
+                  <Input id="name" type="text" placeholder="AI Name" />
                 </div>
                 <div className="space-y-2">
                   <Label className="ps-3" htmlFor="url">
@@ -87,20 +94,20 @@ const Profile = () => {
                   <Input
                     id="url"
                     type="text"
-                    defaultValue="https:example-url.com"
+                    placeholder="https:example-url.com"
                   />
                 </div>
                 <div className="space-y-2">
                   <Label className="ps-3" htmlFor="author">
                     Author Name
                   </Label>
-                  <Input id="author" type="text" defaultValue="Jhon Doe" />
+                  <Input id="author" type="text" placeholder="Jhon Doe" />
                 </div>
                 <div className="space-y-2">
                   <Label className="ps-3" htmlFor="desc">
                     Description
                   </Label>
-                  <Input id="desc" type="text" defaultValue="Description..." />
+                  <Input id="desc" type="text" placeholder="Description..." />
                 </div>
               </CardContent>
               <CardFooter>

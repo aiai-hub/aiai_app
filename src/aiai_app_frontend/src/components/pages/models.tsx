@@ -30,7 +30,11 @@ const Models = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-16 mb-24">
         {items.map((mdl) => (
-          <Link key={mdl.id} to={`/models/details/${mdl.id}`} className="mb-8">
+          <Link
+            key={mdl.id}
+            to={`/models/details/${mdl.id}`}
+            className="mb-8 gap-4"
+          >
             <CardSpotlight className="h-96 w-96">
               <h1 className="text-xl font-bold relative z-20 mt-2 ">
                 {mdl.name}

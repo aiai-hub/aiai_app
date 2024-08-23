@@ -81,18 +81,18 @@ export const Navbar = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator /> 
             <Link to="/profile">
               <DropdownMenuItem className="cursor-pointer">
                 Settings
               </DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
-            <Link to="/">
+            {/* <Link to="/">
               <DropdownMenuItem className="cursor-pointer">
                 Logout
               </DropdownMenuItem>
-            </Link>
+            </Link> */}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

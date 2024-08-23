@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { items } from "@/stores/dummy-card";
 import { TracingBeam } from "../ui/tracking-bean";
 
+import { DrawerDialogPayment } from "../ui/payment";
+
 const ModelDetails = () => {
   const { id } = useParams<{ id: string }>();
   const item = items.find((item) => item.id === Number(id));
@@ -33,6 +35,8 @@ const ModelDetails = () => {
                 <p className="text-md font-normal tracking-wider mb-4">
                   tag line disini blablablablabla
                 </p>
+
+                <DrawerDialogPayment />
               </div>
             </div>
 
